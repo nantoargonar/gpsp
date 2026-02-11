@@ -6,7 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 74db5e5
+          fetch-depth: 0
+      - name: Checkout specific commit
+        run: git checkout 74db5e5
       - name: Build
         run: |
           $ANDROID_NDK_ROOT/ndk-build -j$(nproc) APP_PLATFORM=android-21 APP_ABI=arm64-v8a
