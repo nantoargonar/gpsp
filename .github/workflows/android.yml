@@ -4,18 +4,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: 74db5e5
-      - name: Install NDK
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y p7zip-full
-          echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;25.2.9519653"
       - name: Build
         run: |
-          ${ANDROID_HOME}/ndk/25.2.9519653/ndk-build -j$(nproc) APP_PLATFORM=android-21 APP_ABI=arm64-v8a
-      - uses: actions/upload-artifact@v3
+          $ANDROID_NDK_ROOT/ndk-build -j$(nproc) APP_PLATFORM=android-21 APP_ABI=arm64-v8a
+      - uses: actions/upload-artifact@v4
         with:
           name: gpsp_android
           path: libs/arm64-v8a/*.so
